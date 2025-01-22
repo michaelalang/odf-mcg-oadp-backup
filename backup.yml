@@ -1,11 +1,6 @@
 apiVersion: velero.io/v1
 kind: Backup
 metadata:
-  annotations:
-    velero.io/resource-timeout: 10m0s
-    velero.io/source-cluster-k8s-gitversion: v1.27.16+03a907c
-    velero.io/source-cluster-k8s-major-version: '1'
-    velero.io/source-cluster-k8s-minor-version: '27'
   generateName: openshift-storage-backup-
   labels:
     app: openshift-storage
