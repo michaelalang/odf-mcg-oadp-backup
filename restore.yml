@@ -8,8 +8,6 @@ metadata:
     component: noobaa-db
 spec:
   excludedResources:
-  - nodes
-  - events
   - events.events.k8s.io
   - backingstores.noobaa.io
   - bucketclasses.noobaa.io
@@ -30,6 +28,7 @@ spec:
   - cephobjectzonegroups.ceph.rook.io
   - cephobjectzones.ceph.rook.io
   - cephrbdmirrors.ceph.rook.io
+  - ceph.rook.io
   - namespacestores.noobaa.io
   - noobaaaccounts.noobaa.io
   - noobaas.noobaa.io
@@ -38,6 +37,12 @@ spec:
   - storagesystem.odf.openshift.io
   - storagecluster.ocs.openshift.io
   - csiaddons.openshift.io
+  - deployment.apps
+  - rbac.authorization.k8s.io
+  - rolebindings
+  - roles
+  - events
+  - jobs
   hooks:
     resources:
       - includedNamespaces:
@@ -55,7 +60,7 @@ spec:
                 - "-c"
                 - /usr/bin/zcat /tmp/pg_dumpall.gz | /usr/bin/pg_restore -U postgres
               container: db
-              execTimeout: 1800s
+              execTimeout: 180s
               waitForReady: true
               onError: Fail
         name: pg_restore
