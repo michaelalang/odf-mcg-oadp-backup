@@ -74,7 +74,7 @@ spec:
               command:
                 - "/bin/bash"
                 - "-c"
-                - /usr/bin/zcat /tmp/pg_dumpall.gz | /usr/bin/pg_restore -U postgres
+                - /usr/bin/zcat /var/lib/pgsql/data/backup/pg_dumpall.gz | /usr/bin/pg_restore -U postgres
               container: db
               execTimeout: 180s
               waitForReady: true
