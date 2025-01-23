@@ -59,6 +59,7 @@ spec:
   - OperatorGroup
   - ReclaimSpaceJob
   - ReplicaSet
+  - authorization.openshift.io
   hooks:
     resources:
       - includedNamespaces:
