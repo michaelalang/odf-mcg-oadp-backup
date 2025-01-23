@@ -49,3 +49,6 @@ $ oc -n openshift-storage exec -ti noobaa-db-pg-0 -c db -- psql -U postgres -d n
     16
 (1 row)
 ```
+
+![POC](noobaa-db-restore.gif "POC")
+
