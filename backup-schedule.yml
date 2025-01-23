@@ -1,0 +1,57 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  annotations: {}
+  name: daily-openshift-storage-backup
+  namespace: openshift-adp
+spec:
+  schedule: '0 2 * * * '
+  skipImmediately: false
+  template:
+    csiSnapshotTimeout: 10m0s
+    datamover: kopia
+    defaultVolumesToFsBackup: true
+    hooks:
+      resources:
+        - includedNamespaces:
+            - openshift-storage
+          labelSelector:
+            matchExpressions:
+              - key: noobaa-db
+                operator: In
+                values:
+                  - postgres
+          name: pg_dump
+          pre:
+            - exec:
+                command:
+                  - mkdir 
+                  - -p
+                  - /var/lib/pgsql/data/backup
+                container: db
+                onError: Continue
+                timeout: 10s
+            - exec:
+                command:
+                  - rm
+                  - -f
+                  - /var/lib/pgsql/data/backup/pg_dumpall.gz
+                container: db
+                onError: Continue
+                timeout: 10s
+            - exec:
+                command:
+                  - /bin/bash
+                  - -c
+                  - /usr/bin/pg_dumpall -U postgres -c | /usr/bin/gzip -9 -f > /var/lib/pgsql/data/backup/pg_dumpall.gz
+                container: db
+                onError: Fail
+                timeout: 1800s # 30m
+    includedNamespaces:
+      - openshift-storage
+    itemOperationTimeout: 0h30m0s
+    snapshotMoveData: true
+    storageLocation: ${STORAGE}
+    ttl: 78h0m0s
+    volumeSnapshotLocations:
+      - ${STORAGE}
