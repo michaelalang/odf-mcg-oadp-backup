@@ -39,10 +39,26 @@ spec:
   - csiaddons.openshift.io
   - deployment.apps
   - rbac.authorization.k8s.io
+  - RoleBinding
   - rolebindings
+  - Role
   - roles
+  - Route
   - events
   - jobs
+  - Lease
+  - DaemonSet
+  - ControllerRevision
+  - ClusterServiceVersion
+  - ControllerRevision
+  - Endpoints
+  - EndpointSlice
+  - HorizontalPodAutoscaler
+  - OCSInitialization
+  - OperatorCondition
+  - OperatorGroup
+  - ReclaimSpaceJob
+  - ReplicaSet
   hooks:
     resources:
       - includedNamespaces:
