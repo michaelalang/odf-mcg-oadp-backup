@@ -32,7 +32,6 @@ spec:
   - namespacestores.noobaa.io
   - noobaaaccounts.noobaa.io
   - noobaas.noobaa.io
-  - objectbucketclaims.objectbucket.io
   - objectbuckets.objectbucket.io
   - storagesystem.odf.openshift.io
   - storagecluster.ocs.openshift.io
