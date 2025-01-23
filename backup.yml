@@ -34,7 +34,7 @@ spec:
               command:
                 - rm
                 - -f
-                - /tmp/pg_dumpall.gz
+                - /var/lib/pgsql/data/backup/pg_dumpall.gz
               container: db
               onError: Continue
               timeout: 10s
