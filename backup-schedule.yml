@@ -4,6 +4,9 @@ metadata:
   annotations: {}
   name: daily-openshift-storage-backup
   namespace: openshift-adp
+  labels:
+    app: openshift-storage
+    component: noobaa-db
 spec:
   schedule: '0 2 * * * '
   skipImmediately: false
