@@ -1,5 +1,11 @@
 # OpenShift APIs for Data Protection (OADP) for Red Hat OpenShift Data Foundation MultiCloud Gateway Database
 
+**NOTE**
+```
+This procedure is not officially supported ! 
+Please open a case with Red Hat to get guidance through the process
+``` 
+
 Taking a backup of your MCG Database
 ```
 export STORAGE=<your OADP storage location>
@@ -27,18 +33,16 @@ Due to the duration of the Database restore (depending on your Database size) th
 Database was active and serving correct content. 
 Ensure to reconcile the pods accordingly after the Database restore has finished.
 
-ToDo:
-At the moment, OADP doesn't finish quickly as it hits an issue seen in the logs as 
-```
-E0123 07:19:33.572247       1 reflector.go:147] pkg/mod/k8s.io/client-go@v0.29.0/tools/cache/reflector.go:229: Failed to watch authorization.openshift.io/v1, Resource=roles: the server does not allow this method on the requested resource
-``` 
-Even though that is not affecting the restore process, we are investigating how to improve the restore process.
-
 
 Restart the operator which we turned off 
 ```
 oc -n openshift-storage scale --replicas=1 deploy/odf-operator-controller-manager deploy/noobaa-operator
 ``` 
+
+It might be necessary to remove the **noobaa-operator-lock**  configMap to get NooBaa backin to healthy state.
+```
+oc -n openshift-storage delete cm noobaa-operator-lock
+```
 
 Verify functionality through following command
 
